@@ -1,0 +1,31 @@
+version: 1
+send_anonymous_usage_stats: true
+project_id: "tap-sharepointexcel"
+default_environment: test
+environments:
+- name: test
+plugins:
+  extractors:
+  - name: "tap-sharepointexcel"
+    namespace: "tap_sharepointexcel"
+    pip_url: -e .
+    capabilities:
+    - state
+    - catalog
+    - discover
+    - about
+    - stream-maps
+    config:
+      auth_token: 
+      user_agent: 'Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/111.0'
+      #search_query: /search(q='EET Master File')
+    settings:
+    # TODO: To configure using Meltano, declare settings and their types here:
+    - name: auth_token
+      kind: password
+    - name: user_agent  
+    #- name: search_query
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
