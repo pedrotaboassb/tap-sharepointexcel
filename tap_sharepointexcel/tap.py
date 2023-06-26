@@ -17,11 +17,10 @@ class Tapsharepointexcel(Tap):
     # TODO: Update this section with the actual config values you expect:
     config_jsonschema = th.PropertiesList(
         th.Property(
-            "start_date",
+            "api_url",
             th.StringType,
-            required=False,
-            secret=False,  # Flag config as protected.
-            description="Start date",
+            required=True,
+            description="The url for the API service",
         ),th.Property(
             "user_agent",
             th.StringType,
@@ -40,7 +39,13 @@ class Tapsharepointexcel(Tap):
             required=False,
             secret=False,  # Flag config as protected.
             description="Name of the file to be found in sharepoint. Example: /search(q='XXXXX')",
-        )
+        ),
+        th.Property(
+            "client_id",
+            th.DateTimeType,
+            required=False,
+            description="Managed Identity Client ID",
+        ),
     ).to_dict()
 
 

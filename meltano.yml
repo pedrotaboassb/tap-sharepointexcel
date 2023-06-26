@@ -1,13 +1,13 @@
 version: 1
 send_anonymous_usage_stats: true
-project_id: "tap-sharepointexcel"
+project_id: tap-sharepointexcel
 default_environment: test
 environments:
 - name: test
 plugins:
   extractors:
-  - name: "tap-sharepointexcel"
-    namespace: "tap_sharepointexcel"
+  - name: tap-sharepointexcel
+    namespace: tap_sharepointexcel
     pip_url: -e .
     capabilities:
     - state
@@ -15,17 +15,28 @@ plugins:
     - discover
     - about
     - stream-maps
-    config:
-      auth_token: 
-      user_agent: 'Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/111.0'
-      #search_query: /search(q='EET Master File')
     settings:
-    # TODO: To configure using Meltano, declare settings and their types here:
+    - name: api_url
+      label: Site URL
+      documentation: API URL of the sharepoint site where your lists are located.
+      placeholder: Ex. https://graph.microsoft.com/v1.0/sites/my-tenant.com:/sites/my-site:/
     - name: auth_token
       kind: password
-    - name: user_agent  
+    - name: user_agent
+    - name: client_id
+      label: Managed Identity Client ID
+      value: null
+      documentation: Managed Identity Client ID, when authenticating with a user-assigned managed identity.
     #- name: search_query
+    config:
+      api_url: "https://graph.microsoft.com/v1.0/sites/storebrand.sharepoint.com,5eacacfb-9932-40b7-a16c-4fa9b74d5d68,050842a3-92f8-4445-9412-7dd46c05616d/drives/b!-6ysXjKZt0ChbE-pt01daKNCCAX4kkVElBJ91GwFYW3f3z6xi1K0QriBhDbkk-x0"
+      auth_token: 
+      user_agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/111.0
+      #search_query: /search(q='EET Master File')
   loaders:
   - name: target-jsonl
     variant: andyh1203
     pip_url: target-jsonl
+  - name: target-snowflake
+    variant: transferwise
+    pip_url: pipelinewise-target-snowflake

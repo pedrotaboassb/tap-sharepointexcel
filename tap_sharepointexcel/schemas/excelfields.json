@@ -917,10 +917,10 @@
         "70000_Financial_Instrument_Sustainability_Risk_Is_Deemed_To_Be_Relevant": {
             "type": ["string", "null"]
         },
-        "last_sync": {
+        "last_sync_datetime": {
             "type": ["string", "null"]
         },
-        "lastModifiedDateTime": {
+        "last_modified_datetime": {
             "type": ["string", "null"]
         },
         "file_name": {
@@ -1236,8 +1236,8 @@
         "70000_Financial_Instrument_Sustainability_Risk_Is_Deemed_To_Be_Relevant",
         "Fundname",
         "ISIN",
-        "last_sync", 
-        "lastModifiedDateTime",
+        "last_sync_datetime", 
+        "last_modified_datetime",
         "file_name",
         "file_id"
     ]

@@ -66,7 +66,7 @@ class ExcelFile(sharepointexcelStream):
     parent_stream_type = DriveItemsStream
     ignore_parent_replication_keys = True
     path = "/items/{file_id}/content"
-    primary_keys = ["id"]
+    primary_keys = ["ISIN"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "excelfields.json"
     content_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -89,7 +89,7 @@ class ExcelFile(sharepointexcelStream):
         
         excel_data_dict = (pd.read_excel(io.BytesIO(response.content))
             
-            .assign(last_sync= pd.Timestamp.now(tz='Europe/Oslo'), lastModifiedDateTime = self.lastModifiedDateTime, file_name =self.file_name, file_id = self.file_id )
+            .assign(last_sync_datetime= pd.Timestamp.now(tz='Europe/Oslo'), last_modified_datetime = self.lastModifiedDateTime, file_name =self.file_name, file_id = self.file_id )
             .apply(lambda x : [find_numbers(i) for i in x] )
             .to_dict()
                           
