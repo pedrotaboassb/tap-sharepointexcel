@@ -58,10 +58,10 @@ class DriveItemsStream(sharepointexcelStream):
     
 
 
-class ExcelFile(sharepointexcelStream):
+class ExcelFile_four(sharepointexcelStream):
     
 
-    name = "excelfile"
+    name = "excelfile_four"
     parent_stream_type = DriveItemsStream
     ignore_parent_replication_keys = True
     path = "/items/{file_id}/content"

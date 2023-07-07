@@ -57,7 +57,7 @@ class Tapsharepointexcel(Tap):
         """
         return [
             streams.DriveItemsStream(self),
-            streams.ExcelFile(self)
+            streams.ExcelFile_four(self)
         ]
 
 
