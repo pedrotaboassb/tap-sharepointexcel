@@ -2,158 +2,143 @@
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
-        "@odata.context": {
+        "@odata.type": {
             "type": "string"
         },
-        "value": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "@odata.type": {
-                        "type": "string"
-                    },
-                    "createdDateTime": {
-                        "type": "string"
-                    },
-                    "id": {
-                        "type": "string"
-                    },
-                    "lastModifiedDateTime": {
-                        "type": "string"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "webUrl": {
-                        "type": "string"
-                    },
-                    "size": {
-                        "type": "integer"
-                    },
-                    "createdBy": {
-                        "type": "object",
-                        "properties": {
-                            "user": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "displayName": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "displayName",
-                                    "email"
-                                ]
-                            }
+        "createdDateTime": {
+            "type": "string"
+        },
+        "id": {
+            "type": "string"
+        },
+        "lastModifiedDateTime": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "webUrl": {
+            "type": "string"
+        },
+        "size": {
+            "type": "integer"
+        },
+        "createdBy": {
+            "type": "object",
+            "properties": {
+                "user": {
+                    "type": "object",
+                    "properties": {
+                        "email": {
+                            "type": "string"
                         },
-                        "required": [
-                            "user"
-                        ]
+                        "displayName": {
+                            "type": "string"
+                        }
                     },
-                    "lastModifiedBy": {
-                        "type": "object",
-                        "properties": {
-                            "user": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "displayName": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "displayName",
-                                    "email"
-                                ]
-                            }
+                    "required": [
+                        "displayName",
+                        "email"
+                    ]
+                }
+            },
+            "required": [
+                "user"
+            ]
+        },
+        "lastModifiedBy": {
+            "type": "object",
+            "properties": {
+                "user": {
+                    "type": "object",
+                    "properties": {
+                        "email": {
+                            "type": "string"
                         },
-                        "required": [
-                            "user"
-                        ]
+                        "displayName": {
+                            "type": "string"
+                        }
                     },
-                    "parentReference": {
-                        "type": "object",
-                        "properties": {
-                            "driveType": {
-                                "type": "string"
-                            },
-                            "driveId": {
-                                "type": "string"
-                            },
-                            "id": {
-                                "type": "string"
-                            },
-                            "siteId": {
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "driveId",
-                            "driveType",
-                            "id",
-                            "siteId"
-                        ]
-                    },
-                    "file": {
-                        "type": "object",
-                        "properties": {
-                            "mimeType": {
-                                "type": "string"
-                            },
-                            "hashes": {
-                                "type": "object"
-                            }
-                        },
-                        "required": [
-                            "hashes",
-                            "mimeType"
-                        ]
-                    },
-                    "fileSystemInfo": {
-                        "type": "object",
-                        "properties": {
-                            "createdDateTime": {
-                                "type": "string"
-                            },
-                            "lastModifiedDateTime": {
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "createdDateTime",
-                            "lastModifiedDateTime"
-                        ]
-                    },
-                    "searchResult": {
-                        "type": "object"
-                    }
+                    "required": [
+                        "displayName",
+                        "email"
+                    ]
+                }
+            },
+            "required": [
+                "user"
+            ]
+        },
+        "parentReference": {
+            "type": "object",
+            "properties": {
+                "driveType": {
+                    "type": "string"
                 },
-                "required": [
-                    "@odata.type",
-                    "createdBy",
-                    "createdDateTime",
-                    "file",
-                    "fileSystemInfo",
-                    "id",
-                    "lastModifiedBy",
-                    "lastModifiedDateTime",
-                    "name",
-                    "parentReference",
-                    "searchResult",
-                    "size",
-                    "webUrl"
-                ]
-            }
+                "driveId": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "siteId": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "driveId",
+                "driveType",
+                "id",
+                "siteId"
+            ]
+        },
+        "file": {
+            "type": "object",
+            "properties": {
+                "mimeType": {
+                    "type": "string"
+                },
+                "hashes": {
+                    "type": "object"
+                }
+            },
+            "required": [
+                "hashes",
+                "mimeType"
+            ]
+        },
+        "fileSystemInfo": {
+            "type": "object",
+            "properties": {
+                "createdDateTime": {
+                    "type": "string"
+                },
+                "lastModifiedDateTime": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "createdDateTime",
+                "lastModifiedDateTime"
+            ]
+        },
+        "searchResult": {
+            "type": "object"
         }
     },
     "required": [
-        "@odata.context",
-        "value"
+        "@odata.type",
+        "createdBy",
+        "createdDateTime",
+        "file",
+        "fileSystemInfo",
+        "id",
+        "lastModifiedBy",
+        "lastModifiedDateTime",
+        "name",
+        "parentReference",
+        "searchResult",
+        "size",
+        "webUrl"
     ]
 }

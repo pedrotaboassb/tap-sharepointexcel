@@ -36,7 +36,7 @@ class sharepointexcelStream(RESTStream):
         # TODO: hardcode a value here, or retrieve it from self.config
         return self.config["api_url"] 
 
-    records_jsonpath = "$[*]"  # Or override `parse_response`.
+    #records_jsonpath = "$.value[*]"  # Or override `parse_response`.
 
     # Set this value or override `get_new_paginator`.
     #next_page_token_jsonpath = "$.next_page"  # noqa: S105
@@ -79,6 +79,14 @@ class sharepointexcelStream(RESTStream):
         return headers
 
 
+    def parse_response(self, response: requests.Response) -> Iterable[dict]:
+        """Parse the response and return an iterator of result records."""
+        # TODO: Parse response body and return a set of records.
+        
     
+        list_of_master_file_data = sorted([metadata for metadata in response.json()['value'] if metadata['name'] == 'EET Master File.xlsx'], key = lambda x: x['lastModifiedDateTime'])
+        
+            
+        return extract_jsonpath(self.records_jsonpath, input=list_of_master_file_data[-1])
 
 

@@ -25,11 +25,11 @@ plugins:
     - name: user_agent
     - name: client_id
       label: Managed Identity Client ID
-      value: null
-      documentation: Managed Identity Client ID, when authenticating with a user-assigned managed identity.
+      documentation: Managed Identity Client ID, when authenticating with a user-assigned
+        managed identity.
     #- name: search_query
     config:
-      api_url: "https://graph.microsoft.com/v1.0/sites/storebrand.sharepoint.com,5eacacfb-9932-40b7-a16c-4fa9b74d5d68,050842a3-92f8-4445-9412-7dd46c05616d/drives/b!-6ysXjKZt0ChbE-pt01daKNCCAX4kkVElBJ91GwFYW3f3z6xi1K0QriBhDbkk-x0"
+      api_url: https://graph.microsoft.com/v1.0/sites/storebrand.sharepoint.com,5eacacfb-9932-40b7-a16c-4fa9b74d5d68,050842a3-92f8-4445-9412-7dd46c05616d/drives/b!-6ysXjKZt0ChbE-pt01daKNCCAX4kkVElBJ91GwFYW3f3z6xi1K0QriBhDbkk-x0
       auth_token: 
       user_agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/111.0
       #search_query: /search(q='EET Master File')
@@ -40,3 +40,11 @@ plugins:
   - name: target-snowflake
     variant: transferwise
     pip_url: pipelinewise-target-snowflake
+    config:
+      dbname: dev_landing_sharepoint_sam
+      warehouse: LOADING_SAM_WH
+      file_format: DEV_LANDING_SHAREPOINT_SAM.STAGING_ETTMASTERFILE.meltano_csv
+      role: loader_meltano
+      default_target_schema: staging_ettmasterfile
+      add_metadata_columns: true
+      
