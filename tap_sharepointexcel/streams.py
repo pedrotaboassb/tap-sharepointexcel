@@ -33,10 +33,10 @@ FILES_DIR = Path(__file__).parent / Path("./files")
 #       - Copy-paste as many times as needed to create multiple stream types.
 
 
-class DriveItemsStream(sharepointexcelStream):
+class DriveItemsStream_two(sharepointexcelStream):
     """Define custom stream."""
     
-    name = "driveitems"
+    name = "driveitems_two"
     path =  "/search(q='EET Master File')"
     primary_keys = ["id"]
     replication_key = None
@@ -58,11 +58,11 @@ class DriveItemsStream(sharepointexcelStream):
     
 
 
-class ExcelFile_four(sharepointexcelStream):
+class ExcelFile_five(sharepointexcelStream):
     
 
-    name = "excelfile_four"
-    parent_stream_type = DriveItemsStream
+    name = "excelfile_five"
+    parent_stream_type = DriveItemsStream_two
     ignore_parent_replication_keys = True
     path = "/items/{file_id}/content"
     primary_keys = ["ISIN"]

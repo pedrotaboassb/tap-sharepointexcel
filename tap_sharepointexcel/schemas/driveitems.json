@@ -35,16 +35,10 @@
                         "displayName": {
                             "type": "string"
                         }
-                    },
-                    "required": [
-                        "displayName",
-                        "email"
-                    ]
+                    }
+            
                 }
-            },
-            "required": [
-                "user"
-            ]
+            }
         },
         "lastModifiedBy": {
             "type": "object",
@@ -58,16 +52,9 @@
                         "displayName": {
                             "type": "string"
                         }
-                    },
-                    "required": [
-                        "displayName",
-                        "email"
-                    ]
+                    }
                 }
-            },
-            "required": [
-                "user"
-            ]
+            }
         },
         "parentReference": {
             "type": "object",
@@ -84,13 +71,7 @@
                 "siteId": {
                     "type": "string"
                 }
-            },
-            "required": [
-                "driveId",
-                "driveType",
-                "id",
-                "siteId"
-            ]
+            }
         },
         "file": {
             "type": "object",
@@ -101,11 +82,7 @@
                 "hashes": {
                     "type": "object"
                 }
-            },
-            "required": [
-                "hashes",
-                "mimeType"
-            ]
+            }
         },
         "fileSystemInfo": {
             "type": "object",
@@ -116,29 +93,10 @@
                 "lastModifiedDateTime": {
                     "type": "string"
                 }
-            },
-            "required": [
-                "createdDateTime",
-                "lastModifiedDateTime"
-            ]
+            }
         },
         "searchResult": {
             "type": "object"
         }
-    },
-    "required": [
-        "@odata.type",
-        "createdBy",
-        "createdDateTime",
-        "file",
-        "fileSystemInfo",
-        "id",
-        "lastModifiedBy",
-        "lastModifiedDateTime",
-        "name",
-        "parentReference",
-        "searchResult",
-        "size",
-        "webUrl"
-    ]
+    }
 }

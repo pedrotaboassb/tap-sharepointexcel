@@ -41,9 +41,9 @@ plugins:
     variant: transferwise
     pip_url: pipelinewise-target-snowflake
     config:
-      dbname: dev_landing_sharepoint_sam
+      dbname: landing_sharepoint_sam
       warehouse: LOADING_SAM_WH
-      file_format: DEV_LANDING_SHAREPOINT_SAM.STAGING_ETTMASTERFILE.meltano_csv
+      file_format: LANDING_SHAREPOINT_SAM.STAGING_ETTMASTERFILE.meltano_csv
       role: loader_meltano
       default_target_schema: staging_ettmasterfile
       add_metadata_columns: true

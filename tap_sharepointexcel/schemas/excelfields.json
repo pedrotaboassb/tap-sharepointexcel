@@ -84,10 +84,10 @@
             "type" : ["string", "null"]
         },
         "20070_Financial_Instrument_Percentage_Of_Minimum_SFDR_Art_8_Funds": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20080_Financial_Instrument_Percentage_Of_Minimum_SFDR_Art_9_Funds": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20090_Financial_Instrument_Main_ESG_Focus": {
             "type" : ["string", "null"]
@@ -117,7 +117,7 @@
             "type" : ["string", "null"]
         },
         "20180_Financial_Instrument_Products_Minimal_Proportion_Of_Sustainable_Investments_Art_8": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20190_Financial_Instrument_Sustainable_Investment_EU_Taxonomy_Art_8": {
             "type" : ["string", "null"]
@@ -129,7 +129,7 @@
             "type" : ["string", "null"]
         },
         "20220_Financial_Instrument_Minimum_Sustainable_Investment_With_Environmental_Objective_Art_9": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20230_Financial_Instrument_Environmentally_Sustainable_Investment_EU_Taxonomy_Art_9": {
             "type" : ["string", "null"]
@@ -138,7 +138,7 @@
             "type" : ["string", "null"]
         },
         "20250_Financial_Instrument_Minimum_Sustainable_Investment_Social_Objective_Art_9": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20260_Financial_Instrument_ESG_Existing_Thematic_Characteristics": {
             "type" : ["string", "null"]
@@ -189,49 +189,49 @@
             "type" : ["string", "null"]
         },
         "20420_Financial_Instrument_EU_SFDR_Minimum_Or_Planned_Investments_Sustainable_Investments": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20430_Financial_Instrument_EU_SFDR_Minimum_Or_Planned_Other_Investments_With_Environmental_Or_Social_Characteristics": {
             "type" : ["number", "null"]
         },
         "20440_Financial_Instrument_EU_SFDR_Minimum_Or_Planned_Investments_Sustainable_Investments_Environmental": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20450_Financial_Instrument_EU_SFDR_Minimum_Or_Planned_Investments_Sustainable_Investments_Taxonomy_Aligned": {
             "type" : ["number", "null"]
         },
         "20460_Financial_Instrument_EU_SFDR_Minimum_Or_Planned_Investments_Sustainable_Investments_Other_Environmental": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20470_Financial_Instrument_EU_SFDR_Minimum_Or_Planned_Investments_Sustainable_Investments_Social": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20480_Financial_Instrument_Last_Reported_Asset_Allocation_Date": {
             "type" : ["string", "null"]
         },
         "20490_Financial_Instrument_EU_SFDR_Last_Reported_Investments_With_Environmental_Or_Social_Characteristics": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20500_Financial_Instrument_EU_SFDR_Last_Reported_Investments_Not_Sustainable_Other": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20510_Financial_Instrument_EU_SFDR_Last_Reported_Investments_Are_Sustainable_Investments": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20520_Financial_Instrument_EU_SFDR_Last_Reported_Other_Investments_With_Environmental_Or_Social_Characteristics": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20530_Financial_Instrument_EU_SFDR_Last_Reported_Investments_Are_Sustainable_Investments_Environmental": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20540_Financial_Instrument_EU_SFDR_Last_Reported_Investments_Are_Sustainable_Investments_Taxonomy_Aligned": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20550_Financial_Instrument_EU_SFDR_Last_Reported_Investments_Are_Sustainable_Investments_Other_Environmental": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20560_Financial_Instrument_EU_SFDR_Last_Reported_Investments_Are_Sustainable_Investments_Social": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20570_Financial_Instrument_With_Objective_Of_A_Reduction_In_Carbon_Emissions": {
             "type" : ["string", "null"]
@@ -243,10 +243,10 @@
             "type" : ["string", "null"]
         },
         "20600_Financial_Instrument_Minimum_Percentage_Investments_Aligned_EU_Taxonomy_Incl_Sovereign_Bonds": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20610_Financial_Instrument_Minimum_Percentage_Investments_Aligned_EU_Taxonomy_Excl_Sovereign_Bonds": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20620_Financial_Instrument_Was_This_Statement_Subject_To_An_External_Review_By_Third_Party": {
             "type" : ["string", "null"]
@@ -255,16 +255,16 @@
             "type" : ["string", "null"]
         },
         "20640_Financial_Instrument_Minimum_Share_Of_Transitional_Activities": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20650_Financial_Instrument_Minimum_Share_Of_Enabling_Activities": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20660_Financial_Instrument_Percentage_Taxonomy_Aligned_Incl_Sovereign_Revenue": {
             "type" : ["string", "null"]
         },
         "20670_Financial_Instrument_Percentage_Taxonomy_Aligned_Incl_Sovereign_Capex": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "20680_Financial_Instrument_Percentage_Taxonomy_Aligned_Incl_Sovereign_Opex": {
             "type" : ["string", "null"]
@@ -594,7 +594,7 @@
             "type" : ["string", "null"]
         },
         "50220_Financial_Instrument_Alcohol_Exclusion_Relative_Threshold": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "50230_Financial_Instrument_Alcohol_Exclusion_Part_Of_Value_Chain": {
             "type" : ["string", "null"]
@@ -606,7 +606,7 @@
             "type" : ["string", "null"]
         },
         "50320_Financial_Instrument_Animal_Testing_Exclusion_Relative_Threshold": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "50330_Financial_Instrument_Animal_Testing_Exclusion_Part_Of_Value_Chain": {
             "type" : ["string", "null"]
@@ -630,7 +630,7 @@
             "type" : ["string", "null"]
         },
         "50520_Financial_Instrument_Conventional_Weapons_Exclusion_Relative_Threshold": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "50530_Financial_Instrument_Conventional_Weapons_Exclusion_Part_Of_Value_Chain": {
             "type" : ["string", "null"]
@@ -651,7 +651,7 @@
             "type" : ["string", "null"]
         },
         "50650_Financial_Instrument_Coal_Energy_Mix_Relative_Cap": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "50660_Financial_Instrument_Coal_New_Infrastructure": {
             "type" : ["string", "null"]
@@ -663,7 +663,7 @@
             "type" : ["string", "null"]
         },
         "50720_Financial_Instrument_Factory_Farming_Exclusion_Relative_Threshold": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "50730_Financial_Instrument_Factory_Farming_Exclusion_Part_Of_Value_Chain": {
             "type" : ["string", "null"]
@@ -675,7 +675,7 @@
             "type" : ["string", "null"]
         },
         "50820_Financial_Instrument_FUR_Exclusion_Relative_Threshold": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "50830_Financial_Instrument_FUR_Exclusion_Part_Of_Value_Chain": {
             "type" : ["string", "null"]
@@ -699,16 +699,16 @@
             "type" : ["string", "null"]
         },
         "51020_Financial_Instrument_Gas_Relative_Threshold": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "51030_Financial_Instrument_Gas_Part_Of_Value_Chain": {
             "type" : ["string", "null"]
         },
         "51040_Financial_Instrument_Gas_Energy_Mix_Absolute_Cap": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "51050_Financial_Instrument_Gas_Energy_Mix_Relative_Cap": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "51060_Financial_Instrument_Gas_New_Infrastructure": {
             "type" : ["string", "null"]
@@ -720,7 +720,7 @@
             "type" : ["string", "null"]
         },
         "51120_Financial_Instrument_Genetic_Engineering_Exclusion_Relative_Threshold": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "51130_Financial_Instrument_Genetic_Engineering_Exclusion_Part_Of_Value_Chain": {
             "type" : ["string", "null"]
@@ -732,7 +732,7 @@
             "type" : ["string", "null"]
         },
         "51220_Financial_Instrument_GMO_Exclusion_Relative_Threshold": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "51230_Financial_Instrument_GMO_Exclusion_Part_Of_Value_Chain": {
             "type" : ["string", "null"]
@@ -744,7 +744,7 @@
             "type" : ["string", "null"]
         },
         "51320_Financial_Instrument_Nuclear_Energy_Exclusion_Relative_Threshold": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "51400_Financial_Instrument_Nuclear_Weapons_Exclusion": {
             "type" : ["string", "null"]
@@ -765,16 +765,16 @@
             "type" : ["string", "null"]
         },
         "51520_Financial_Instrument_Oil_Relative_Threshold": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "51530_Financial_Instrument_Oil_Part_Of_Value_Chain": {
             "type" : ["string", "null"]
         },
         "51540_Financial_Instrument_Oil_Energy_Mix_Absolute_Cap": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "51550_Financial_Instrument_Oil_Energy_Mix_Relative_Cap": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "51560_Financial_Instrument_Oil_New_Infrastructure": {
             "type" : ["string", "null"]
@@ -792,10 +792,10 @@
             "type" : ["string", "null"]
         },
         "51640_Financial_Instrument_Other_Fossil_Fuel_Energy_Mix_Absolute_Cap": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "51650_Financial_Instrument_Other_Fossil_Fuel_Energy_Mix_Relative_Cap": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "51660_Financial_Instrument_Other_Fossil_Fuel_New_Infrastructure": {
             "type" : ["string", "null"]
@@ -819,7 +819,7 @@
             "type" : ["string", "null"]
         },
         "51820_Financial_Instrument_Pesticides_Exclusion_Relative_Threshold": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "51830_Financial_Instrument_Pesticides_Exclusion_Part_Of_Value_Chain": {
             "type" : ["string", "null"]
@@ -831,7 +831,7 @@
             "type" : ["string", "null"]
         },
         "51920_Financial_Instrument_Research_On_Human_Embryos_Exclusion_Relative_Threshold": {
-            "type" : ["string", "null"]
+            "type" : ["number", "null"]
         },
         "51930_Financial_Instrument_Research_On_Human_Embryos_Exclusion_Part_Of_Value_Chain": {
             "type" : ["string", "null"]
@@ -918,13 +918,13 @@
             "type" : ["string", "null"]
         },
         "last_sync_datetime": {
-            "type" : "string"
+            "type" : ["string", "null"]
         },
         "last_modified_datetime": {
-            "type" : "string"
+            "type" : ["string", "null"]
         },
         "file_name": {
-            "type" : "string"
+            "type" : ["string", "null"]
         },
         "file_id": {
             "type" : "string"
@@ -933,9 +933,6 @@
     "required": [
         "Fundname",
         "ISIN",
-        "file_id",
-        "file_name",
-        "last_modified_datetime",
-        "last_sync_datetime"
+        "file_id"
     ]
 }
