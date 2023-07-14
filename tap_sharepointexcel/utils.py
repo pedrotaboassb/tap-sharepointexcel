@@ -22,28 +22,30 @@ def find_newest_file(d, objs):
     return  objs
 
 
-def delete_row(excel_data_dict, columns, row_index):
-    result = all(element == row_index[0] for element in row_index)
+def delete_row(the_dict, coll, row_idx):
+    result = all(element == row_idx[0] for element in row_idx)
     if (result):
-        for each in columns:
-            excel_data_dict[each].pop(row_index[0])
+        for each in coll:     
+            the_dict[each].pop(row_idx[0])
     else:
         print("All not equal")
 
-    return excel_data_dict
+    return the_dict
 
 
-def find_row_with_target_string(d, columns = [], row_index_list = [] ):
+def find_row_with_target_string(d, cols = None, rows_index_list_ = None ):
+    cols = [] if cols is None else cols
+    rows_index_list_ = [] if rows_index_list_ is None else rows_index_list_
     for k, v in d.items():
         if not isinstance(v, dict) and v == "Master file":
-           row_index_list.append(k) 
+           rows_index_list_.append(k) 
         elif isinstance(v, dict):
-            columns.append(k)
-            find_row_with_target_string(v, columns, row_index_list)
+            cols.append(k)
+            find_row_with_target_string(v, cols, rows_index_list_)
 
                 
                
-    return columns, row_index_list
+    return cols, rows_index_list_
 
 
 def serialize_datetime(obj):
@@ -56,26 +58,10 @@ def find_numbers(x):
     if isinstance(x, str):
         if x.isdigit():
             return int(x)
-        elif '.' in x:
+        elif ('.' in x) or (',' in x):
             try:
                 return float(x)
             except ValueError:
                 pass
     return x
 
-
-"""
-def find_numbers(x):
-    if isinstance(x, str) and (re.search(r"[-+]?(?:\d*\.*\d+)",  str(x))):
-
-            if re.search(r"\.",  x):
-               x = float( re.search(r"[-+]?(?:\d*\.*\d+)",  str(x)).group())
-            else:
-
-               x = int( re.search(r"[-+]?(?:\d*\.*\d+)",  str(x)).group())
-
-    else: 
-        x          
-    return  x  
-
-"""    
