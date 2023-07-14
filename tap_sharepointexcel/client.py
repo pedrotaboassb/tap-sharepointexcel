@@ -111,7 +111,7 @@ class sharepointexcelStream(RESTStream):
         
         _final_data = pd.DataFrame.from_dict(delete_row(excel_data_dict, columns, row_index_list)).fillna(np.nan).replace(np.nan, None)
         for each in _final_data:
-            if any(_final_data[each].apply(lambda x : x.replace('.', '').isnumeric() if isinstance(x, str) else False) ):        
+            if any(_final_data[each].apply(lambda x : x.replace('.', '').isnumeric() if isinstance(x, str) else ( True if isinstance(x, int) or isinstance(x, float) else False) )):           
                _final_data[each] = pd.to_numeric(_final_data[each] ,errors='coerce')                  
 
         _final_data = _final_data.dtypes.to_dict()
