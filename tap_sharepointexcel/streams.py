@@ -46,7 +46,7 @@ FILES_DIR = Path(__file__).parent / Path("./files")
 #       - Copy-paste as many times as needed to create multiple stream types.
 last_id =  None
 
-class ExcelFile(sharepointexcelStream):
+class ExcelFile_six(sharepointexcelStream):
     """Define custom stream."""
     
     @cached
@@ -96,7 +96,7 @@ class ExcelFile(sharepointexcelStream):
         return th.PropertiesList(*properties).to_dict()
 
 
-    name = "excelfile"
+    name = "excelfile_six"
     path =  "/search(q='EET Master File')"
     primary_keys = ["ISIN"]
     replication_key = "ISIN"
