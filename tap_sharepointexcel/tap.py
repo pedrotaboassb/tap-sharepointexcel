@@ -56,8 +56,8 @@ class Tapsharepointexcel(Tap):
             A list of discovered streams.
         """
         return [
-            streams.DriveItemsStream_two(self),
-            streams.ExcelFile_five(self)
+            
+            streams.ExcelFile(self)
         ]
 
 

@@ -11,7 +11,7 @@ from singer_sdk.helpers.jsonpath import extract_jsonpath
 from singer_sdk.pagination import BaseAPIPaginator  # noqa: TCH002
 from singer_sdk.streams import RESTStream
 
-from .utils import find_newest_file, find_row_with_target_string, delete_row, find_numbers
+from .utils import find_newest_file, find_row_with_target_string, delete_row, find_numbers, serialize_datetime
 
 import json
 
@@ -96,43 +96,9 @@ class sharepointexcelStream(RESTStream):
         return headers
 
 
-    def parse_response(self, response: requests.Response) -> Iterable[dict]:
-        """Parse the response and return an iterator of result records."""
-        # TODO: Parse response body and return a set of records.
-        list_of_master_file_data = sorted([metadata for metadata in response.json()['value'] if metadata['name'] == 'EET Master File.xlsx'], key = lambda x: x['lastModifiedDateTime'])
-        self.logger.info("was called! the parsinf on the client sheet")
-        new_response = requests.get(self.url_base+f"/items/{list_of_master_file_data[-1]['id']}/content", headers=self.authenticator._auth_headers)
-        excel_data_dict = (pd.read_excel(io.BytesIO(new_response.content))
-            .apply(lambda x : [find_numbers(i) for i in x] )
-            .to_dict()  
-        )
 
-        columns, row_index_list = find_row_with_target_string(excel_data_dict)
+
         
-        _final_data = pd.DataFrame.from_dict(delete_row(excel_data_dict, columns, row_index_list)).fillna(np.nan).replace(np.nan, None)
-        for each in _final_data:
-            if any(_final_data[each].apply(lambda x : x.replace('.', '').isnumeric() if isinstance(x, str) else ( True if isinstance(x, int) or isinstance(x, float) else False) )):           
-               _final_data[each] = pd.to_numeric(_final_data[each] ,errors='coerce')                  
-
-        _final_data = _final_data.dtypes.to_dict()
-        response_schema = {}
-        for name, type in _final_data.items():
-            if type == 'float64': 
-               type = "number"
-            elif type == 'int64':  
-               type = "number"
-            else:
-               type = "string"     
-            response_schema[name] = type
-
-
-       
-        with open(SCHEMAS_DIR /"sample_dict.json", "w") as outfile:
-            json.dump([response_schema], outfile, default=str )
-        
-        
-            
-        return extract_jsonpath(self.records_jsonpath, input=list_of_master_file_data[-1])
 
     
 
