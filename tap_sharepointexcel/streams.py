@@ -41,7 +41,12 @@ import io
 class ExcelFile(sharepointexcelStream):
     """Define custom stream."""
     #calling the api so we can build a schema and keeping data data in memory so we don't have to call the api again. 
-    @cached    
+    
+    def __init__(self, *args, **kwargs ):
+        self.response_schema = None
+        super().__init__(*args, **kwargs)
+    
+    #@cached    
     def get_initial_data(self):
 
         response = requests.get(self.url_base+self.path, headers=self.authenticator._auth_headers)
@@ -76,21 +81,24 @@ class ExcelFile(sharepointexcelStream):
 
     #@cached
     def build_schema_from_data(self):
- 
-        _final_data_types = self.get_initial_data().dtypes.to_dict()
-        
-        #creating a dictionary with the incoming dimensions and their value types
-        response_schema = {}
-        for name, type in _final_data_types.items():
-            if type == 'float64': 
-               type = "number"
-            elif type == 'int64':  
-               type = "number"
-            else:
-               type = "string"     
-            response_schema[name] = type
+        if not self.response_schema:
 
-        return response_schema
+            _final_data_types = self.get_initial_data().dtypes.to_dict()
+            
+            #creating a dictionary with the incoming dimensions and their value types
+            response_schema = {}
+            for name, type in _final_data_types.items():
+                if type == 'float64': 
+                    type = "number"
+                elif type == 'int64':  
+                    type = "number"
+                else:
+                    type = "string"     
+                response_schema[name] = type
+
+                self.response_schema = response_schema   
+        
+        return self.response_schema
     
     @property
     def schema(self) -> dict:
