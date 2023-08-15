@@ -43,12 +43,22 @@ class ExcelFile(sharepointexcelStream):
     #calling the api so we can build a schema and keeping data data in memory so we don't have to call the api again. 
     @cached    
     def get_initial_data(self):
+
         response = requests.get(self.url_base+self.path, headers=self.authenticator._auth_headers)
-        list_of_master_file_data = sorted([metadata for metadata in response.json()['value'] if metadata['name'] == 'EET Master File.xlsx'], key = lambda x: x['lastModifiedDateTime'])
+                 
+        for objs in response.json()['value']:
+            if objs['name'] == self.path.split("q='")[1].split("'")[0] + ".xlsx":
+               response_objects = [metadata for metadata in response.json()['value'] ]
+            else:
+                break
+
+        list_of_master_file_data = sorted( response_objects, key = lambda x: x['lastModifiedDateTime'])
+        
         new_response = requests.get(self.url_base+f"/items/{list_of_master_file_data[-1]['id']}/content", headers=self.authenticator._auth_headers)
        
         excel_data_dict = (pd.read_excel(io.BytesIO(new_response.content), engine='openpyxl')
             .assign(last_sync_datetime= pd.Timestamp.now(tz='Europe/Oslo'), last_modified_datetime = list_of_master_file_data[-1]['lastModifiedDateTime'], file_name =list_of_master_file_data[-1]['name'], file_id = list_of_master_file_data[-1]['id'] )              
+            #maybe this is overkill, since I have another, more complete one, a few lines below
             .apply(lambda x : [find_numbers(i) for i in x] )
             .to_dict()  
             )
@@ -95,10 +105,14 @@ class ExcelFile(sharepointexcelStream):
             properties.append(th.Property(name, type )) 
   
         return th.PropertiesList(*properties).to_dict()
-
+    
+    @property
+    def path(self) -> str:
+        file_name = self.config['search_query']
+        file_query = f"/search(q='{file_name}')"
+        return file_query
 
     name = "excelfile"
-    path =  "/search(q='EET Master File')"
     primary_keys = ["ISIN"]
     replication_key = "ISIN"
     # Optionally, you may also use `schema_filepath` in place of `schema`:
