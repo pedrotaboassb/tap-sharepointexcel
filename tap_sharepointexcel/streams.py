@@ -97,11 +97,12 @@ class ExcelFile(sharepointexcelStream):
                 response_schema[name] = type
 
                 self.response_schema = response_schema   
-        
+        #Need to do this?
         return self.response_schema
     
     @property
     def schema(self) -> dict:
+        #How can I trim things here
         response_schema = self.build_schema_from_data()
         properties: List[th.Property] = []
         
