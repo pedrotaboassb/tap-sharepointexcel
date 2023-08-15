@@ -122,6 +122,7 @@ class ExcelFile(sharepointexcelStream):
 
     name = "excelfile"
     primary_keys = ["ISIN"]
+    #which date to use with the replication key? 
     replication_key = "ISIN"
     # Optionally, you may also use `schema_filepath` in place of `schema`:
     # schema_filepath = SCHEMAS_DIR / "users.json"  # noqa: ERA001
