@@ -34,6 +34,7 @@ plugins:
       auth_token: 
       user_agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/111.0
       search_query: 'EET Master File'
+      client_id: ''
   loaders:
   - name: target-jsonl
     variant: andyh1203
