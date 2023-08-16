@@ -30,7 +30,7 @@ plugins:
         managed identity.
     #- name: search_query
     config:
-      api_url: https://graph.microsoft.com/v1.0/sites/storebrand.sharepoint.com,5eacacfb-9932-40b7-a16c-4fa9b74d5d68,050842a3-92f8-4445-9412-7dd46c05616d/drives/b!-6ysXjKZt0ChbE-pt01daKNCCAX4kkVElBJ91GwFYW3f3z6xi1K0QriBhDbkk-x0
+      api_url: https://graph.microsoft.com/v1.0/sites/storebrand.sharepoint.com,42e5c427-b553-45b9-bdc9-4c0fdf5caf77,d489208d-1ae9-4f44-80af-518c5a153201/drives/b!J8TlQlO1uUW9yUwP31yvd40gidTpGkRPgK9RjFoVMgGkXGl_ZwtPRZNXJJcHMdiQ
       auth_token: 
       user_agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/111.0
       search_query: 'EET Master File'
