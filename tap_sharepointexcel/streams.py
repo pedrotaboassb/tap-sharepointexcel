@@ -38,7 +38,7 @@ import io
 # TODO: - Override `UsersStream` and `GroupsStream` with your own stream definition.
 #       - Copy-paste as many times as needed to create multiple stream types.
 
-class ExcelFile(sharepointexcelStream):
+class ExcelFile_aug(sharepointexcelStream):
     """Define custom stream."""
     #calling the api so we can build a schema and keeping data data in memory so we don't have to call the api again. 
     
@@ -121,7 +121,7 @@ class ExcelFile(sharepointexcelStream):
         file_query = f"/search(q='{file_name}')"
         return file_query
 
-    name = "excelfile"
+    name = "excelfile_aug"
     primary_keys = ["ISIN"]
     #which date to use with the replication key? 
     replication_key = "ISIN"
