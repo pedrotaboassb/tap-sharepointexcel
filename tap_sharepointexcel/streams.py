@@ -48,9 +48,14 @@ class ExcelFile_aug(sharepointexcelStream):
     
     #@cached    
     def get_initial_data(self):
-
+        self.logger.info('self.authenticator._auth_params') 
+        self.logger.info(self.authenticator._auth_params) 
+        self.logger.info('self.authenticator._auth_headers') 
+        self.logger.info(self.authenticator._auth_headers)  
+         
         response = requests.get(self.url_base+self.path, headers=self.authenticator._auth_headers)
-                 
+        self.logger.info('response')
+        self.logger.info(response)           
         for objs in response.json()['value']:
             if objs['name'] == self.path.split("q='")[1].split("'")[0] + ".xlsx":
                response_objects = [metadata for metadata in response.json()['value'] ]
