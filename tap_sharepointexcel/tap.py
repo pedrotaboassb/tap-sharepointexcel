@@ -57,7 +57,7 @@ class Tapsharepointexcel(Tap):
         """
         return [
             
-            streams.ExcelFile_aug(self)
+            streams.ExcelMasterFile(self)
         ]
 
 
