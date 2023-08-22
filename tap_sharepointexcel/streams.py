@@ -29,7 +29,9 @@ from singer_sdk import typing as th
 
 from datetime import datetime
 
+import openpyxl
 
+import re
 
 import io 
 
@@ -44,82 +46,76 @@ class ExcelMasterFile(sharepointexcelStream):
     
     def __init__(self, *args, **kwargs ):
         self.response_schema = None
+        self.response_object = None
         super().__init__(*args, **kwargs)
     
     #@cached    
+    
     def get_initial_data(self):
-        self.logger.info('self.authenticator._auth_params') 
-        self.logger.info(self.authenticator._auth_params) 
-        self.logger.info('self.authenticator._auth_headers') 
-        self.logger.info(self.authenticator._auth_headers)  
-         
-        response = requests.get(self.url_base+self.path, headers=self.authenticator._auth_headers)
-        self.logger.info('response')
-        self.logger.info(response)           
-        for objs in response.json()['value']:
-            if objs['name'] == self.path.split("q='")[1].split("'")[0] + ".xlsx":
-               response_objects = [metadata for metadata in response.json()['value'] ]
-            else:
-                break
-
-        list_of_master_file_data = sorted( response_objects, key = lambda x: x['lastModifiedDateTime'])
         
-        new_response = requests.get(self.url_base+f"/items/{list_of_master_file_data[-1]['id']}/content", headers=self.authenticator._auth_headers)
-       
-        excel_data_dict = (pd.read_excel(io.BytesIO(new_response.content), engine='openpyxl')
-            .assign(last_sync_datetime= pd.Timestamp.now(tz='Europe/Oslo'), last_modified_datetime = list_of_master_file_data[-1]['lastModifiedDateTime'], file_name =list_of_master_file_data[-1]['name'], file_id = list_of_master_file_data[-1]['id'] )              
-            #maybe this is overkill, since I have another, more complete one, a few lines below
-            .apply(lambda x : [find_numbers(i) for i in x] )
-            .to_dict()  
-            )
-
-        columns, row_index_list = find_row_with_target_string(excel_data_dict)
-        _final_data = pd.DataFrame.from_dict(delete_row(excel_data_dict, columns, row_index_list)).fillna(np.nan).replace(np.nan, None)
-        
-        #converting columns into their natural data types (double down on that :) )
-        for each in _final_data:
-            if any(_final_data[each].apply(lambda x : x.replace('.', '').isnumeric() if isinstance(x, str) else ( True if isinstance(x, int) or isinstance(x, float) else False) )):           
-                _final_data[each] = pd.to_numeric(_final_data[each] ,errors='coerce') 
-        
-        return _final_data
-
-
-    #@cached
-    def build_schema_from_data(self):
-        if not self.response_schema:
-
-            _final_data_types = self.get_initial_data().dtypes.to_dict()
-            
-            #creating a dictionary with the incoming dimensions and their value types
-            response_schema = {}
-            for name, type in _final_data_types.items():
-                if type == 'float64': 
-                    type = "number"
-                elif type == 'int64':  
-                    type = "number"
+            response = requests.get(self.url_base+self.path, headers=self.authenticator._auth_headers)       
+            for objs in response.json()['value']:
+                if objs['name'] == self.path.split("q='")[1].split("'")[0] + ".xlsx":
+                    response_objects = [metadata for metadata in response.json()['value'] ]
                 else:
-                    type = "string"     
-                response_schema[name] = type
+                    break
 
-                self.response_schema = response_schema   
-        #Need to do this?
-        return self.response_schema
+            list_of_master_file_data = sorted( response_objects, key = lambda x: x['lastModifiedDateTime'])
+            
+
+            new_response = requests.get(self.url_base+f"/items/{list_of_master_file_data[-1]['id']}/content", headers=self.authenticator._auth_headers)
+            file = io.BytesIO(new_response.content)
+            wb = openpyxl.load_workbook(file)
+            date_types_list = list()
+            json_headers = list()
+            json_rows = list()
+            
+
+            for col in wb['Sheet1'].iter_cols(values_only=True):
+                json_headers.append(col[0])
+                json_rows.append(list(col[2:]))
+
+
+            for header, values in dict(zip(json_headers, json_rows)).items():
+                date_types = {}
+                if any(isinstance(x, str)  for x in values) and (any(isinstance(x, float)  for x in values) or any(isinstance(x, int)  for x in values)):
+                        for i in values:
+                            if i is not None:
+                                values[values.index(i)] = float(str(i).replace(',', '.'))
+                
+                date_types[header] = list(map(lambda x: re.search(r"<[^>]+\'([^']+)\'>", str(type(x))).group(1), values ))
+                date_types_list.append(date_types)
+
+            self.response_schema = date_types_list
+
+            json_object = [dict(zip(dict(zip(json_headers, json_rows)), col)) for col in zip(*dict(zip(json_headers, json_rows)).values())]
+
+            self.response_object =  response = json.dumps(json_object, default=serialize_datetime)  
+          
+            
+
     
     @property
     def schema(self) -> dict:
         #How can I trim things here
-        response_schema = self.build_schema_from_data()
+        if not self.response_schema:
+            self.get_initial_data()
+        
         properties: List[th.Property] = []
         
-        for name, type in response_schema.items():
-            if type == 'number':
-                type = th.NumberType() 
-            else:
-                type = th.StringType()  
-            properties.append(th.Property(name, type )) 
+        for each in self.response_schema:
+            for name, type in each.items():
+                if any('int' in x for  x in type) or any('float' in x for  x in type):
+                    type = th.NumberType() 
+                elif any('datetime' in x for  x in type):
+                    type = th.DateTimeType()
+                else:
+                    type = th.StringType()  
+                properties.append(th.Property(name, type )) 
   
         return th.PropertiesList(*properties).to_dict()
     
+
     @property
     def path(self) -> str:
         file_name = self.config['search_query']
@@ -136,10 +132,7 @@ class ExcelMasterFile(sharepointexcelStream):
   
     
     def get_records(self, *args, **kwargs ):
-        response = self.get_initial_data()
-    
-        json_final_data = json.loads(json.dumps(response.fillna(np.nan).replace(np.nan, None).to_dict('records') , default=serialize_datetime))
- 
-        yield from extract_jsonpath(self.records_jsonpath, input=json_final_data)
+        
+        yield from extract_jsonpath(self.records_jsonpath, input=json.loads(self.response_object))
 
 
