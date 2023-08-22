@@ -46,73 +46,92 @@ class ExcelMasterFile(sharepointexcelStream):
     
     def __init__(self, *args, **kwargs ):
         self.response_schema = None
-        self.response_object = None
+        self.response_built_object = None
         super().__init__(*args, **kwargs)
     
     #@cached    
     
-    def get_initial_data(self):
+    def get_response_object(self):
         
-            response = requests.get(self.url_base+self.path, headers=self.authenticator._auth_headers)       
-            for objs in response.json()['value']:
-                if objs['name'] == self.path.split("q='")[1].split("'")[0] + ".xlsx":
+        response = requests.get(self.url_base+self.path, headers=self.authenticator._auth_headers)       
+        for objs in response.json()['value']:
+            if objs['name'] == self.path.split("q='")[1].split("'")[0] + ".xlsx":
                     response_objects = [metadata for metadata in response.json()['value'] ]
-                else:
-                    break
+            else:
+                 break
 
-            list_of_master_file_data = sorted( response_objects, key = lambda x: x['lastModifiedDateTime'])
+        list_of_master_file_data = sorted( response_objects, key = lambda x: x['lastModifiedDateTime'])
             
+        new_response = requests.get(self.url_base+f"/items/{list_of_master_file_data[-1]['id']}/content", headers=self.authenticator._auth_headers)
 
-            new_response = requests.get(self.url_base+f"/items/{list_of_master_file_data[-1]['id']}/content", headers=self.authenticator._auth_headers)
-            file = io.BytesIO(new_response.content)
-            wb = openpyxl.load_workbook(file)
-            date_types_list = list()
-            json_headers = list()
-            json_rows = list()
+        return new_response
+
+
+    def read_workbook(self):
+        #Needs function to do excel vs csv        
+        response_file = self.get_response_object()
+        
+        file = io.BytesIO(response_file.content)
+        workbook = openpyxl.load_workbook(file)
+        
+        json_headers = list()            
+        json_rows = list()
+
+
+        for col in workbook[self.config['sheet_name']].iter_cols(values_only=True):
+            json_headers.append(col[0])
+            json_rows.append(list(col[2:]))
             
+        shelf_data = dict(zip(json_headers, json_rows))
+        
 
-            for col in wb['Sheet1'].iter_cols(values_only=True):
-                json_headers.append(col[0])
-                json_rows.append(list(col[2:]))
+        for values in shelf_data.values():
+            #what if everything is "","" or if someone has used , to separe each 3 digits? does the lib read the excel format correctly? 
+            if (any(isinstance(x, str)  for x in values) 
+                and 
+               (any(isinstance(x, float)  for x in values) 
+                or 
+                any(isinstance(x, int)  for x in values))):
+                for i in values:
+                    if i is not None:
+                        values[values.index(i)] = float(str(i).replace(',', '.'))
 
+        json_object = [dict(zip(shelf_data, col)) for col in zip(*shelf_data.values())]
 
-            for header, values in dict(zip(json_headers, json_rows)).items():
-                date_types = {}
-                if any(isinstance(x, str)  for x in values) and (any(isinstance(x, float)  for x in values) or any(isinstance(x, int)  for x in values)):
-                        for i in values:
-                            if i is not None:
-                                values[values.index(i)] = float(str(i).replace(',', '.'))
-                
-                date_types[header] = list(map(lambda x: re.search(r"<[^>]+\'([^']+)\'>", str(type(x))).group(1), values ))
-                date_types_list.append(date_types)
-
-            self.response_schema = date_types_list
-
-            json_object = [dict(zip(dict(zip(json_headers, json_rows)), col)) for col in zip(*dict(zip(json_headers, json_rows)).values())]
-
-            self.response_object =  response = json.dumps(json_object, default=serialize_datetime)  
+        self.response_object = json.dumps(json_object, default=serialize_datetime)  
           
+        return shelf_data
             
+
+            
+    
+    def build_data_schema(self):
+        
+        date_types_list = list()
+        
+        for header, values in self.read_workbook().items():
+            date_types = {}
+            date_types[header] = list(map(lambda x: re.search(r"<[^>]+\'([^']+)\'>", str(type(x))).group(1), values ))
+            date_types_list.append(date_types)
+
+        self.response_schema = date_types_list
+
 
     
     @property
     def schema(self) -> dict:
-        #How can I trim things here
         if not self.response_schema:
-            self.get_initial_data()
-        
-        properties: List[th.Property] = []
-        
+           self.build_data_schema()
+        properties: List[th.Property] = []     
         for each in self.response_schema:
             for name, type in each.items():
-                if any('int' in x for  x in type) or any('float' in x for  x in type):
+                if any('int' in x for x in type) or any('float' in x for x in type):
                     type = th.NumberType() 
-                elif any('datetime' in x for  x in type):
+                elif any('datetime' in x for x in type):
                     type = th.DateTimeType()
                 else:
                     type = th.StringType()  
                 properties.append(th.Property(name, type )) 
-  
         return th.PropertiesList(*properties).to_dict()
     
 

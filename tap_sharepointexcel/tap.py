@@ -39,12 +39,16 @@ class Tapsharepointexcel(Tap):
             required=False,
             secret=False,  # Flag config as protected.
             description="Name of the file to be found in sharepoint. Example: /search(q='XXXXX')",
-        ),
-        th.Property(
+        ),th.Property(
             "client_id",
             th.DateTimeType,
             required=False,
             description="Managed Identity Client ID",
+        ),th.Property(
+            "sheet_name",
+            th.StringType,
+            required=False,
+            description="Workbook's desired sheet name",
         ),
     ).to_dict()
 
